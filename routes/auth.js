@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-const Student = require("../models/Student"); // <-- Import student model
+const Student = require("../models/Student");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -17,7 +17,6 @@ router.post("/register", async (req, res) => {
 
     user = await User.create({ name, email, password, role });
 
-    // Agar role student hai, to instantly student profile table data banao
     if (role === "student") {
       const studentId = "STU" + Math.floor(100000 + Math.random() * 900000);
       await Student.create({
@@ -48,8 +47,9 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
+    // Standard uniform token parsing context sync
     const token = jwt.sign(
-      { _id: user._id, role: user.role }, // backend controllers key compatibility checked
+      { id: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1d" },
     );
