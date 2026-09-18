@@ -2,8 +2,6 @@
 
 Node.js + Express + MongoDB backend powering a role-based student management system, with JWT authentication and admin/student access control.
 
-Live: https://student-management-system-backend-15ie.onrender.com
-
 ## Features
 
 - **JWT-based authentication** — register and login with hashed passwords (bcrypt)
